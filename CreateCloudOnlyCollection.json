@@ -1,0 +1,67 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "billingPlan": { "type": "string" },
+        "templateImageName": { "type": "string" },
+        "customRdpProperty": {
+            "type": "string",
+            "defaultValue": null
+        },
+        "description": {
+            "type": "string",
+            "defaultValue": "Created using portal.azure.com"
+        },
+        "collectionMode": {
+            "type": "string",
+            "defaultValue": "Apps",
+            "allowedValues": [
+                "Desktop",
+                "Apps",
+                "Unassigned"
+            ]
+        },
+        "notDomainJoined": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "readyForPublishing": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "domainInfo": {
+            "type": "object"
+        },
+        "usersToAdd": {
+            "type": "string",
+            "defaultValue": null
+        },
+        "appsToPublish": {
+            "type": "string",
+            "defaultValue": null
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2014-09-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "type": "Microsoft.RemoteApp/collections",
+            "properties": {
+                "billingPlanName": "[parameters('billingPlan')]",
+                "collectionLocation": "[parameters('location')]",
+                "customRdpProperty": "[parameters('customRdpProperty')]",
+                "description": "[parameters('description')]",
+                "mode": "[parameters('collectionMode')]",
+                "notDomainJoined": "[parameters('notDomainJoined')]",
+                "readyForPublishing": "[parameters('readyForPublishing')]",
+                "templateImageName": "[parameters('templateImageName')]",
+                "adInfo": "[parameters('domainInfo')]",
+                "allowedPrincipals": "[parameters('usersToAdd')]",
+                "publishedApplications":  "[parameters('appsToPublish')]"
+            }
+        }
+    ]
+}
